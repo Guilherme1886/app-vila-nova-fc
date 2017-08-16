@@ -6,12 +6,10 @@ import android.os.Bundle
 import android.os.NetworkOnMainThreadException
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-
 import com.guilhermeantonio.vilanovafutebolclube.R
 import com.guilhermeantonio.vilanovafutebolclube.adapter.NoticiasAdapter
 import com.guilhermeantonio.vilanovafutebolclube.model.NoticiasModel
@@ -44,17 +42,16 @@ class NoticiasFragment : Fragment() {
 
                 val lista_com_as_noticias = getNoticias.select("div.bastian-page div._t div.bastian-feed-item")
 
-
                 lista_com_as_noticias.forEachIndexed { index, element ->
 
                     objNoticias = NoticiasModel()
 
                     val imagens = getNoticias.select("img.bstn-fd-picture-image")[index].attr("src")
-                    val titulos = getNoticias.select("p.feed-post-body-title")[index].text()
+                    val content_noticia = getNoticias.select("p.feed-post-body-title")[index].text()
                     val section_noticias = getNoticias.select("span.feed-post-metadata-section")[index].text()
 
                     objNoticias.url_noticia = imagens
-                    objNoticias.title_noticia = titulos
+                    objNoticias.title_noticia = content_noticia
                     objNoticias.section_noticia = section_noticias
 
                     noticiasList.add(objNoticias)
@@ -67,8 +64,10 @@ class NoticiasFragment : Fragment() {
                 e.printStackTrace()
             }
 
+            Thread.sleep(1000)
 
             return noticiasList
+
         }
 
         override fun onPostExecute(result: List<NoticiasModel>?) {
@@ -101,10 +100,10 @@ class NoticiasFragment : Fragment() {
 
             })
 
-            recycler_view_noticias.adapter = mAdapter
-            recycler_view_noticias.layoutManager = GridLayoutManager(context, 1)
             progressBar_noticias.visibility = View.INVISIBLE
+            recycler_view_noticias.layoutManager = GridLayoutManager(context, 1)
 
+            recycler_view_noticias.adapter = mAdapter
 
         }
     }

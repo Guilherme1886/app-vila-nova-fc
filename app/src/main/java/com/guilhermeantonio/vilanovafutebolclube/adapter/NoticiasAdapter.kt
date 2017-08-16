@@ -1,6 +1,7 @@
 package com.guilhermeantonio.vilanovafutebolclube.adapter
 
 import android.content.Context
+import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.guilhermeantonio.vilanovafutebolclube.R
 import com.guilhermeantonio.vilanovafutebolclube.model.NoticiasModel
+import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 
 /**
@@ -39,13 +41,27 @@ class NoticiasAdapter(private val noticiasList: List<NoticiasModel>,
     inner class NoticiasViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         var imageViewUrlNoticia: ImageView = itemView.findViewById(R.id.imagem_noticia) as ImageView
+        var textViewSubTitleNoticia: TextView = itemView.findViewById(R.id.subtitle_noticia) as TextView
         var textViewTitleNoticia: TextView = itemView.findViewById(R.id.title_noticia) as TextView
+        var cardNoticia: CardView = itemView.findViewById(R.id.card_view) as CardView
 
 
         fun bind(item: NoticiasModel, listener: OnItemClickListener) {
 
-            textViewTitleNoticia.text = item.title_noticia
-            Picasso.with(context).load(item.url_noticia).into(imageViewUrlNoticia)
+
+            Picasso.with(context).load(item.url_noticia).into(imageViewUrlNoticia, object : Callback {
+                override fun onSuccess() {
+                    cardNoticia.visibility = View.VISIBLE
+                    textViewSubTitleNoticia.text = item.subtitle_noticia
+                    textViewTitleNoticia.text = item.title_noticia
+
+                }
+
+                override fun onError() {
+
+                }
+
+            })
 
             imageViewUrlNoticia.setOnClickListener { listener.OnItemClickFoto(item) }
         }

@@ -7,6 +7,7 @@ class NoticiasModel {
 
     var url_noticia = ""
     var title_noticia = ""
+    var subtitle_noticia = ""
     var section_noticia = ""
 
 
