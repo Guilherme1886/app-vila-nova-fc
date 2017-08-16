@@ -40,7 +40,7 @@ class NoticiasAdapter(private val noticiasList: List<NoticiasModel>,
 
     inner class NoticiasViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        var imageViewUrlNoticia: ImageView = itemView.findViewById(R.id.imagem_noticia) as ImageView
+        var imageViewUrlFotoNoticia: ImageView = itemView.findViewById(R.id.imagem_noticia) as ImageView
         var textViewSubTitleNoticia: TextView = itemView.findViewById(R.id.subtitle_noticia) as TextView
         var textViewTitleNoticia: TextView = itemView.findViewById(R.id.title_noticia) as TextView
         var cardNoticia: CardView = itemView.findViewById(R.id.card_view) as CardView
@@ -49,7 +49,7 @@ class NoticiasAdapter(private val noticiasList: List<NoticiasModel>,
         fun bind(item: NoticiasModel, listener: OnItemClickListener) {
 
 
-            Picasso.with(context).load(item.url_noticia).into(imageViewUrlNoticia, object : Callback {
+            Picasso.with(context).load(item.url_foto_noticia).into(imageViewUrlFotoNoticia, object : Callback {
                 override fun onSuccess() {
                     cardNoticia.visibility = View.VISIBLE
                     textViewSubTitleNoticia.text = item.subtitle_noticia
@@ -63,7 +63,7 @@ class NoticiasAdapter(private val noticiasList: List<NoticiasModel>,
 
             })
 
-            imageViewUrlNoticia.setOnClickListener { listener.OnItemClickFoto(item) }
+            imageViewUrlFotoNoticia.setOnClickListener { listener.OnItemClickFoto(item) }
         }
     }
 }

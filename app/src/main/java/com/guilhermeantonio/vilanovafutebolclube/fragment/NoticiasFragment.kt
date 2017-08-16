@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.NetworkOnMainThreadException
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,11 +48,14 @@ class NoticiasFragment : Fragment() {
                     objNoticias = NoticiasModel()
 
                     val imagens = getNoticias.select("img.bstn-fd-picture-image")[index].attr("src")
-                    val content_noticia = getNoticias.select("p.feed-post-body-title")[index].text()
+                    val title_noticia = getNoticias.select("p.feed-post-body-title")[index].text()
                     val section_noticias = getNoticias.select("span.feed-post-metadata-section")[index].text()
+                    val url_noticia = getNoticias.select("a.feed-post-link")[index].attr("href")
 
-                    objNoticias.url_noticia = imagens
-                    objNoticias.title_noticia = content_noticia
+
+                    objNoticias.url_noticia = url_noticia
+                    objNoticias.url_foto_noticia = imagens
+                    objNoticias.title_noticia = title_noticia
                     objNoticias.section_noticia = section_noticias
 
                     noticiasList.add(objNoticias)
@@ -81,6 +85,7 @@ class NoticiasFragment : Fragment() {
                 objNoticias = NoticiasModel()
 
                 objNoticias.url_noticia = it.url_noticia
+                objNoticias.url_foto_noticia = it.url_foto_noticia
                 objNoticias.title_noticia = it.title_noticia
 
 
@@ -94,7 +99,8 @@ class NoticiasFragment : Fragment() {
             mAdapter = NoticiasAdapter(noticiasList, context, object : NoticiasAdapter.OnItemClickListener {
                 override fun OnItemClickFoto(itemTime: NoticiasModel) {
 
-                    Toast.makeText(context, itemTime.title_noticia, Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, itemTime.url_noticia, Toast.LENGTH_LONG).show()
+
 
                 }
 

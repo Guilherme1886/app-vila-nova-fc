@@ -5,6 +5,7 @@ package com.guilhermeantonio.vilanovafutebolclube.model
  */
 class NoticiasModel {
 
+    var url_foto_noticia = ""
     var url_noticia = ""
     var title_noticia = ""
     var subtitle_noticia = ""
