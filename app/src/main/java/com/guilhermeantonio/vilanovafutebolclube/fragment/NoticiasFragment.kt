@@ -1,6 +1,7 @@
 package com.guilhermeantonio.vilanovafutebolclube.fragment
 
 
+import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
 import android.os.NetworkOnMainThreadException
@@ -12,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.guilhermeantonio.vilanovafutebolclube.R
+import com.guilhermeantonio.vilanovafutebolclube.activity.DetalheNoticiaActivity
 import com.guilhermeantonio.vilanovafutebolclube.adapter.NoticiasAdapter
 import com.guilhermeantonio.vilanovafutebolclube.model.NoticiasModel
 import kotlinx.android.synthetic.main.fragment_noticias.*
@@ -99,9 +101,14 @@ class NoticiasFragment : Fragment() {
             mAdapter = NoticiasAdapter(noticiasList, context, object : NoticiasAdapter.OnItemClickListener {
                 override fun OnItemClickFoto(itemTime: NoticiasModel) {
 
-                    Toast.makeText(context, itemTime.url_noticia, Toast.LENGTH_LONG).show()
+                    startActivity(
+                            Intent(context, DetalheNoticiaActivity::class.java)
+                                    .putExtra("url_noticia", itemTime.url_noticia)
+                                    .putExtra("url_foto_noticia", itemTime.url_foto_noticia)
+                                    .putExtra("title_noticia", itemTime.title_noticia)
 
 
+                    )
                 }
 
             })
